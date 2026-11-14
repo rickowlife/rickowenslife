@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NODE_02 // RICK OWENS AI TERMINAL</title>
+  <style>
+    :root {
+      --bg: #050505;
+      --surface: #0c0c0c;
+      --border: #222222;
+      --text: #eaeaea;
+      --muted: #666666;
+      --accent: #ffffff;
+      --green: #00ff66;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Courier New', monospace; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 50px;
+      background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .ticker { border-bottom: 1px solid var(--border); background: #090909; padding: 6px 0; overflow: hidden; white-space: nowrap; font-size: 11px; letter-spacing: 2px; color: var(--muted); }
+    .ticker-text { display: inline-block; padding-left: 100%; animation: marquee 22s linear infinite; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+    .wrapper { max-width: 860px; margin: 0 auto; padding: 20px 16px; }
+    .navbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border: 1px solid var(--border); background: var(--surface); padding: 12px 16px; margin-bottom: 20px; font-size: 12px; }
+    .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); margin-right: 6px; }
+    .btn-link { color: var(--accent); text-decoration: none; border: 1px solid var(--border); padding: 6px 12px; background: #141414; }
+    .btn-link:hover { background: var(--accent); color: var(--bg); }
+    .section-label { font-size: 12px; color: var(--muted); margin: 22px 0 10px; letter-spacing: 1.5px; }
+    .ai-terminal { border: 1px solid var(--border); background: var(--surface); display: flex; flex-direction: column; height: 420px; }
+    .ai-topbar { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--border); background: #111; font-size: 11px; }
+    .mode-btn { background: #181818; border: 1px solid var(--border); color: var(--muted); padding: 4px 8px; font-size: 11px; cursor: pointer; }
+    .mode-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .chat-feed { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 13px; }
+    .bubble { max-width: 85%; padding: 10px 14px; border: 1px solid var(--border); line-height: 1.5; }
+    .bubble.ai { align-self: flex-start; background: #111; border-left: 2px solid var(--accent); }
+    .bubble.user { align-self: flex-end; background: #1c1c1c; border-right: 2px solid var(--muted); }
+    .bubble-tag { font-size: 10px; color: var(--muted); margin-bottom: 4px; }
+    .quick-bar { display: flex; gap: 6px; padding: 8px 14px; border-top: 1px solid var(--border); overflow-x: auto; background: #090909; }
+    .quick-btn { background: #131313; border: 1px solid var(--border); color: var(--muted); padding: 4px 10px; font-size: 11px; cursor: pointer; white-space: nowrap; }
+    .quick-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .chat-form { display: flex; border-top: 1px solid var(--border); }
+    .chat-form input { flex: 1; background: #070707; border: none; color: var(--text); padding: 14px; font-size: 13px; outline: none; }
+    .chat-form button { background: var(--accent); color: var(--bg); border: none; padding: 0 20px; font-weight: bold; cursor: pointer; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .card { border: 1px solid var(--border); background: var(--surface); padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .field { width: 100%; background: #080808; border: 1px solid var(--border); color: var(--text); padding: 8px; font-size: 12px; outline: none; }
+    .btn-row { display: flex; gap: 8px; }
+    .btn { flex: 1; background: #141414; border: 1px solid var(--border); color: var(--text); padding: 8px; font-size: 11px; cursor: pointer; }
+    .btn:hover { background: var(--accent); color: var(--bg); }
+  </style>
+</head>
+<body>
+  <div class="ticker"><div class="ticker-text">NODE_02 // RICK OWENS NEURAL ARCHIVE // 9MICE // KAI ANGEL // VIPERR // DOTA 2 // DDNET // AI READY //</div></div>
+  <div class="wrapper">
+    <div class="navbar">
+      <div><span class="dot"></span>SYSTEM: NODE_02 [ONLINE]</div>
+      <a href="index.html" class="btn-link">[ <<- BACK_TO_INDEX ]</a>
+    </div>
+    <div class="section-label">## // 01_ai_neural_interface</div>
+    <div class="ai-terminal">
+      <div class="ai-topbar">
+        <span>CORE: <strong>RICK_AI // NET_SEARCH v4.0</strong></span>
+        <button class="mode-btn" onclick="clearMessages()">CLEAR</button>
+      </div>
+      <div class="chat-feed" id="chatFeed">
+        <div class="bubble ai">
+          <div class="bubble-tag">RICK_AI // SYSTEM_BOOT</div>
+          Связь установлена. Могу найти инфу в базе знаний, показать погоду в любом городе, курс валют, подобрать трек или сыграть во взлом кода.<br><br>
+          Введи <strong>/help</strong> для списка всех возможностей.
+        </div>
+      </div>
+      <div class="quick-bar">
+        <button class="quick-btn" onclick="quickSend('/help')">/help</button>
+        <button class="quick-btn" onclick="quickSend('погода в москве')">Погода</button>
+        <button class="quick-btn" onclick="quickSend('курс доллара')">Курс валют</button>
+        <button class="quick-btn" onclick="quickSend('посоветуй трек')">Музыка</button>
+        <button class="quick-btn" onclick="quickSend('сделай ник')">Генератор ника</button>
+        <button class="quick-btn" onclick="quickSend('игра')">Взлом кода</button>
+      </div>
+      <form class="chat-form" onsubmit="sendMessage(event)">
+        <input type="text" id="msgInput" placeholder="Спроси что-нибудь или введи /help..." autocomplete="off" />
+        <button type="submit">SEND &gt;&gt;</button>
+      </form>
+    </div>
+      <div class="section-label">## // 02_extra_modules</div>
+    <div class="grid-2">
+      <div class="card">
+        <div style="font-size:14px;font-weight:bold;">[ CIPHER // ШИФРАТОР ]</div>
+        <div style="font-size:12px;color:var(--muted);">Зашифруй текст в секретный код для постов.</div>
+        <input type="text" id="cipherInput" class="field" placeholder="Введи текст или код..." />
+        <div class="btn-row">
+          <button class="btn" onclick="encodeText()">ШИФРОВАТЬ</button>
+          <button class="btn" onclick="decodeText()">РАСШИФРОВАТЬ</button>
+          <button class="btn" onclick="copyCipher()">COPY</button>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-size:14px;font-weight:bold;">[ VOID_SYNTH // ФОНОВЫЙ ГУЛ ]</div>
+        <div style="font-size:12px;color:var(--muted);">Мрачный ночной эмбиент прямо в браузере.</div>
+        <div id="synthStatus" class="field" style="text-align:center;color:var(--muted);">AUDIO ENGINE: STANDBY</div>
+        <div class="btn-row">
+          <button class="btn" id="synthBtn" onclick="toggleSynth()">ВКЛЮЧИТЬ ЭМБИЕНТ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const chatFeed = document.getElementById('chatFeed');
+    const msgInput = document.getElementById('msgInput');
+    const state = { lastTopic: null, gameActive: false, secretCode: 0, attempts: 0 };
+
+    function addBubble(author, text, type) {
+      const div = document.createElement('div');
+      div.className = `bubble ${type}`;
+      div.innerHTML = `<div class="bubble-tag">${author}</div><div>${text}</div>`;
+      chatFeed.appendChild(div);
+      chatFeed.scrollTop = chatFeed.scrollHeight;
+      return div;
+    }
+
+    function clearMessages() {
+      chatFeed.innerHTML = '';
+      state.gameActive = false;
+      state.lastTopic = null;
+      addBubble('RICK_AI', 'Логи очищены. Жду запрос.', 'ai');
+    }
+
+    function quickSend(txt) {
+      msgInput.value = txt;
+      sendMessage(new Event('submit'));
+    }
+
+    function pickRandom(arr) {
+      return arr.slice().sort(() => Math.random() - 0.5).shift();
+    }
+
+    function checkLocalCommands(raw) {
+      const q = raw.toLowerCase().trim();
+
+      if (state.gameActive) {
+        if (q === 'стоп' || q === 'выход') { state.gameActive = false; return 'Взлом прерван.'; }
+        const guess = parseInt(q);
+        if (isNaN(guess)) return 'Введи число от <b>10 до 99</b> (или <b>стоп</b>).';
+        state.attempts++;
+        if (guess === state.secretCode) { state.gameActive = false; return `<b>[ ACCESS GRANTED ]</b> Код <b>${state.secretCode}</b> взломан за ${state.attempts} попыток!`; }
+        if (state.attempts >= 6) { state.gameActive = false; return `<b>[ LOCKED ]</b> Попытки кончились! Код был: <b>${state.secretCode}</b>.`; }
+        return `Неверно. Нужный код <b>${guess < state.secretCode ? 'БОЛЬШЕ (▲)' : 'МЕНЬШЕ (▼)'}</b>. Осталось попыток: ${6 - state.attempts}.`;
+      }
+
+      if (q === '/help' || q.includes('помощь') || q.includes('что ты умеешь')) {
+        return 'Доступные функции:<br>• <b>Погода в [город]</b> — реальная температура<br>• <b>Курс доллара</b> — свежий курс ЦБ<br>• <b>Кто такой / Что такое [запрос]</b> — поиск в базе знаний<br>• <b>Посоветуй трек</b> / <b>Сделай ник</b> / <b>Пост в ТГК</b><br>• <b>Игра</b> — взлом пин-кода<br>• <b>/glitch</b> — перезагрузка матрицы<br>• Любой пример (<code>1337 * 3</code>) — калькулятор';
+      }
+
+      if (q === '/glitch' || q.includes('матрица')) {
+        document.body.style.filter = 'invert(1)';
+        setTimeout(() => document.body.style.filter = 'none', 1000);
+        return '<b>[ SYSTEM_GLITCH ]</b> Визуальная матрица перезагружена!';
+      }
+
+      if (q.includes('игр') || q.includes('взлом')) {
+        state.gameActive = true;
+        state.secretCode = Math.floor(Math.random() * 90) + 10;
+        state.attempts = 0;
+        return '<b>[ CRACK_CODE ]</b> Загадан код от <b>10 до 99</b>. У тебя 6 попыток. Вводи первое число!';
+      }
+
+      const isRepeat = ['еще', 'ещё', 'другую', 'другой', 'дальше'].some(w => q.includes(w));
+
+      if (q.includes('трек') || q.includes('музык') || (isRepeat && state.lastTopic === 'music')) {
+        state.lastTopic = 'music';
+        const tracks = ['9mice — kill bill / evian', 'kai angel — andy warhol', '9mice — Smokey Eyes', 'королевский XVII — sv moscow', 'dabbackwood — archive_freestyle'];
+        return '<b>[ AUDIO_LOG ]</b> ' + pickRandom(tracks);
+      }
+
+      if (q.includes('ник') || (isRepeat && state.lastTopic === 'nick')) {
+        state.lastTopic = 'nick';
+        const p = ['rick', 'v1per', 'void', 'archive', 'ghost', 'cyber', 'zero', 'night'];
+        const s = ['2026', 'core', '001', 'eyes', 'kill', 'soul', 'exe', 'x'];
+        return '<b>[ ID_GEN ]</b> <code>' + pickRandom(p) + '_' + pickRandom(s) + '</code>';
+      }
+
+      if (q.includes('пост') || q.includes('тгк') || (isRepeat && state.lastTopic === 'tgk')) {
+        state.lastTopic = 'tgk';
+        const posts = [
+          '<b>[ ARCHIVE LOG // 2026 ]</b><br>Ночь. В наушниках снова тяжёлый бас. Пока остальные спят, мы собираем свой собственный мир.',
+          '<b>[ SYSTEM UPDATE ]</b><br>Меньше лишнего шума — чище сигнал. Залетай в новый узел на сайте, там обновился терминал.'
+        ];
+        return pickRandom(posts);
+      }
+
+      const mathMatch = q.match(/^(?:посчитай|реши)?\s*([\d\s+\-*/().]+)$/);
+      if (mathMatch && /[+\-*/]/.test(mathMatch)) {
+        try { const res = Function('"use strict";return (' + mathMatch + ')')(); if (!isNaN(res)) return `<b>[ CALC ]</b> = <b>${res}</b>`; } catch {}
+      }
+
+      return null;
+    }
+
+    async function sendMessage(e) {
+      e.preventDefault();
+      const text = msgInput.value.trim();
+      if (!text) return;
+
+      addBubble('YOU', text, 'user');
+      msgInput.value = '';
+
+      const localAns = checkLocalCommands(text);
+      if (localAns) {
+        addBubble('RICK_AI // SYSTEM', localAns, 'ai');
+        return;
+      }
+
+      const q = text.toLowerCase();
+      const loading = addBubble('RICK_AI // SEARCHING...', 'Ищу данные в сети...', 'ai');
+
+      try {
+        if (q.includes('погод')) {
+          let city = q.replace(/погод[ауеы]?|сейчас|завтра|сегодня|какая|в|во|\?/g, '').trim() || 'Moscow';
+if (city.length > 4) city = city.slice(0, -1);
+          const geoRes = await fetch(`https://open-meteo.com{encodeURIComponent(city)}&count=1&language=ru`);
+          const geoData = await geoRes.json();
+          if (geoData.results && geoData.results.length > 0) {
+            const loc = geoData.results.shift();
+            const wRes = await fetch(`https://open-meteo.com{loc.latitude}&longitude=${loc.longitude}&current_weather=true`);
+            const wData = await wRes.json();
+            const cw = wData.current_weather;
+            loading.remove();
+            addBubble('RICK_AI // METEO', `<b>[ ПОГОДА: ${loc.name.toUpperCase()} ]</b><br>• Температура: <b>${cw.temperature}°C</b><br>• Ветер: <b>${cw.windspeed} км/ч</b>`, 'ai');
+            return;
+          }
+        }
+
+        if (q.includes('курс') || q.includes('доллар') || q.includes('евро')) {
+          const cbrRes = await fetch('https://cbr-xml-daily.ru');
+          const cbrData = await cbrRes.json();
+          loading.remove();
+          addBubble('RICK_AI // FINANCE', `<b>[ КУРС ЦБ РФ ]</b><br>• USD: <b>${cbrData.Valute.USD.Value.toFixed(2)} ₽</b><br>• EUR: <b>${cbrData.Valute.EUR.Value.toFixed(2)} ₽</b>`, 'ai');
+          return;
+        }
+
+        const cleanQuery = text.replace(/^(что такое|кто такой|кто такая|расскажи про|найди|загугли|поясни за)\s+/i, '').replace(/\?/g, '').trim();
+        const searchUrl = `https://wikipedia.org{encodeURIComponent(cleanQuery)}&utf8=&format=json&origin=*`;
+        const sRes = await fetch(searchUrl);
+        const sData = await sRes.json();
+
+        if (sData.query && sData.query.search && sData.query.search.length > 0) {
+          const topItem = sData.query.search.shift();
+          const sumRes = await fetch(`https://wikipedia.org{encodeURIComponent(topItem.title)}`);
+          const sumData = await sumRes.json();
+          loading.remove();
+          addBubble('RICK_AI // INFO_DB', `<b>[ ${sumData.title.toUpperCase()} ]</b><br>${sumData.extract}`, 'ai');
+          return;
+        }
+      } catch (err) {}
+
+      loading.remove();
+      const replies = [
+        'Понял тебя. Спроси у меня <b>погоду в любом городе</b>, <b>курс доллара</b> или <b>кто такой / что такое...</b> — сразу найду ответ!',
+        'Интересная тема. Можем также сыграть во <b>взлом кода</b> или сгенерировать <b>ник</b> — введи <b>/help</b>.',
+        'На связи. Могу пробить инфу по любой теме из базы знаний или посчитать сложный пример.'
+      ];
+      addBubble('RICK_AI // CHAT', pickRandom(replies), 'ai');
+    }
+
+    function encodeText() {
+      const inp = document.getElementById('cipherInput');
+      if (inp.value) inp.value = 'VAULT://' + btoa(unescape(encodeURIComponent(inp.value)));
+    }
+    function decodeText() {
+      const inp = document.getElementById('cipherInput');
+      try { if (inp.value) inp.value = decodeURIComponent(escape(atob(inp.value.replace('VAULT://', '')))); } catch { alert('Неверный шифр'); }
+    }
+    function copyCipher() {
+      const inp = document.getElementById('cipherInput');
+      if (inp.value) { navigator.clipboard.writeText(inp.value); const o = inp.value; inp.value = '[ COPIED ]'; setTimeout(() => inp.value = o, 800); }
+    }
+
+    let audioCtx = null, osc1 = null, osc2 = null, isPlaying = false;
+    function toggleSynth() {
+      const btn = document.getElementById('synthBtn'), st = document.getElementById('synthStatus');
+      if (!isPlaying) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        osc1 = audioCtx.createOscillator(); osc2 = audioCtx.createOscillator();
+          const gain = audioCtx.createGain(), filter = audioCtx.createBiquadFilter();
+        osc1.type = 'sawtooth'; osc1.frequency.value = 55;
+        osc2.type = 'sine'; osc2.frequency.value = 55.5;
+        filter.type = 'lowpass'; filter.frequency.value = 140;
+        gain.gain.value = 0.12;
+        osc1.connect(filter); osc2.connect(filter); filter.connect(gain); gain.connect(audioCtx.destination);
+        osc1.start(); osc2.start(); isPlaying = true;
+        btn.innerText = 'ВЫКЛЮЧИТЬ ЭМБИЕНТ'; st.innerText = 'AUDIO ENGINE: ACTIVE'; st.style.color = '#00ff66';
+      } else {
+        osc1.stop(); osc2.stop(); audioCtx.close(); isPlaying = false;
+        btn.innerText = 'ВКЛЮЧИТЬ ЭМБИЕНТ'; st.innerText = 'AUDIO ENGINE: STANDBY'; st.style.color = '#666';
+      }
+    }
+  </script>
+</body>
+</html>
