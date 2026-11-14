@@ -6,15 +6,18 @@
     <title>rick owens ebet....</title>
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
-        body {
+         body {
             font-family: 'JetBrains Mono', monospace;
             color: #ffffff;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            overflow: hidden;
+            padding: 60px 15px;
+            box-sizing: border-box;
+            overflow-x: hidden;
+            gap: 25px;
         }
 
         #enterScreen {
@@ -239,10 +242,94 @@
             color: #ffffff;
             border-color: rgba(255, 255, 255, 0.4);
         }
+         .link-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-icon {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            flex-shrink: 0;
+        }
+
+        /* Кастомный курсор (работает только на ПК с мышкой) */
+        @media (pointer: fine) {
+            body, a, button, #enterScreen {
+                cursor: none !important;
+            }
+            .custom-cursor {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 18px;
+                height: 18px;
+                border: 1.5px solid #ffffff;
+                border-radius: 50%;
+                pointer-events: none;
+                transform: translate(-50%, -50%);
+                z-index: 9999;
+                transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+            .custom-cursor::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 4px;
+                height: 4px;
+                background: #ffffff;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+            }
+            .custom-cursor.hover {
+                width: 34px;
+                height: 34px;
+                background: rgba(255, 255, 255, 0.15);
+            }
+        }
+         .about-box {
+            background: rgba(15, 15, 15, 0.72);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+            width: 340px;
+            max-width: 90%;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: left;
+            transition: transform 0.35s ease, border-color 0.35s ease;
+        }
+
+        .about-box:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .about-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 12px 0;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            padding-bottom: 8px;
+        }
+
+        .about-text {
+            font-size: 13px;
+            line-height: 1.7;
+            color: #cccccc;
+            margin: 0;
+        }
     </style>
 </head>
 <body>
-
+  <div class="custom-cursor" id="customCursor"></div>
     <div id="enterScreen">
         <div class="enter-text">[ click to see rick owens bio-&gt;&gt; ]</div>
     </div>
@@ -266,14 +353,29 @@
         </div>
 
         <div class="links">
-            <a href="https://t.me" target="_blank" class="link-btn">tgk</a>
-            <a href="https://t.me" target="_blank" class="link-btn">tg ls</a>
-            <a href="https://tiktok.com" target="_blank" class="link-btn">TikTok</a>
+                       <a href="https://t.me/rickowlife" target="_blank" class="link-btn">
+                <svg class="btn-icon" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                tgk
+            </a>
+            <a href="https://t.me/rickowensebetvas" target="_blank" class="link-btn">
+                <svg class="btn-icon" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                tg ls
+            </a>
+            <a href="https://www.tiktok.com/@rick_owens77?_r=1&_t=ZS-9BNTt2ZmzUP" target="_blank" class="link-btn">
+                <svg class="btn-icon" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                TikTok
+            </a>
         </div>
 
         <button id="musicBtn">sound: on</button>
     </div>
-
+ <div class="about-box">
+        <h2 class="about-title">// my bio text </h2>
+        <p class="about-text">
+            name: rick owens <br> country: Russia<br> playing: dota2,ddnet<br> i have a personal Telegram channel with all sorts of things<br><br>
+            I like women; I respect them.<br> favorite artists: 9mice,kai angel,dabbackwood,королевский XVII<br>I hate people
+        </p>
+    </div>
     <script>
         const enterScreen = document.getElementById("enterScreen");
         const bgMusic = document.getElementById("bgMusic");
@@ -360,6 +462,67 @@
             requestAnimationFrame(animateAsh);
         }
         animateAsh();
+                document.addEventListener("mousemove", (e) => {
+            for (let i = 0; i < 2; i++) {
+                const spark = document.createElement("div");
+                spark.style.position = "fixed";
+                spark.style.left = e.clientX + "px";
+                spark.style.top = e.clientY + "px";
+                spark.style.width = Math.random() * 4 + 2 + "px";
+                spark.style.height = spark.style.width;
+                spark.style.background = "#ffffff";
+                spark.style.borderRadius = "50%";
+                spark.style.pointerEvents = "none";
+                spark.style.zIndex = "9999";
+                spark.style.boxShadow = "0 0 8px #ffffff";
+                spark.style.transition = "all 0.6s ease-out";
+                document.body.appendChild(spark);
+
+                setTimeout(() => {
+                    spark.style.transform = `translate(${(Math.random() - 0.5) * 35}px, ${Math.random() * 35 + 10}px) scale(0)`;
+                    spark.style.opacity = "0";
+                }, 10);
+
+                setTimeout(() => spark.remove(), 600);
+            }
+        });
+         const clickTags = ["RR", "wtf" , "???", "kai angel", "9mm", "9mice", "vipeRR", "rick owens", "^^", "†"];
+        let tagIndex = 0;
+
+        document.addEventListener("click", (e) => {
+            // Не создаём тег при самом первом клике по экрану входа
+            if (e.target.closest("#enterScreen")) return;
+
+            const tag = document.createElement("span");
+            tag.textContent = clickTags[tagIndex];
+            tagIndex = (tagIndex + 1) % clickTags.length;
+
+            tag.style.position = "fixed";
+            tag.style.left = e.clientX + "px";
+            tag.style.top = e.clientY + "px";
+            tag.style.color = "#ffffff";
+            tag.style.fontFamily = "'JetBrains Mono', monospace";
+            tag.style.fontSize = "14px";
+            tag.style.fontWeight = "bold";
+            tag.style.pointerEvents = "none";
+            tag.style.userSelect = "none";
+            tag.style.zIndex = "9999";
+            tag.style.textShadow = "0 0 10px rgba(255, 255, 255, 0.8)";
+            tag.style.transform = "translate(-50%, -50%) scale(0.8)";
+            tag.style.transition = "all 2s cubic-bezier(0.16, 1, 0.3, 1)";
+
+            document.body.appendChild(tag);
+
+            // Случайный небольшой разлёт влево или вправо при всплытии вверх
+            const randomX = (Math.random() - 0.5) * 60;
+
+            requestAnimationFrame(() => {
+                tag.style.transform = `translate(calc(-50% + ${randomX}px), -65px) scale(1.2)`;
+                tag.style.opacity = "0";
+            });
+
+            setTimeout(() => tag.remove(), 2000);
+        });
     </script>
 
 </body>
