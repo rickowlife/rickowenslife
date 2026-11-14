@@ -326,11 +326,461 @@
             color: #cccccc;
             margin: 0;
         }
+  /* Изначально обе карточки скрыты и опущены ниже */
+        .content-box, .about-box {
+            opacity: 0;
+            transform: translateY(55px) scale(0.95);
+            transition: opacity 1.6s ease-out, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+
+        /* Первая карточка выезжает сразу после клика (через 0.2с после начала растворения экрана) */
+        body.loaded .content-box {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition-delay: 0.2s;
+        }
+
+        /* Вторая карточка ждёт 1.2 секунды, пока выедет первая, и появляется следом */
+        body.loaded .about-box {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition-delay: 1.2s;
+        }
+
+        /* Плавный подъём при наведении мыши без задержки */
+        body.loaded .content-box:hover,
+        body.loaded .about-box:hover {
+            transform: translateY(-5px);
+            transition-delay: 0s;
+            transition-duration: 0.35s;
+        }
+         /* Третья карточка (топ треков) с задержкой появления */
+        .tracks-box {
+            opacity: 0;
+            transform: translateY(55px) scale(0.95);
+            transition: opacity 1.6s ease-out, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+
+        body.loaded .tracks-box {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition-delay: 2.1s;
+        }
+
+        body.loaded .tracks-box:hover {
+            transform: translateY(-5px);
+            transition-delay: 0s;
+            transition-duration: 0.35s;
+        }
+
+        /* Стили списка треков */
+        .track-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .track-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            transition: background 0.25s ease, transform 0.25s ease;
+        }
+
+        .track-item:last-child {
+            border-bottom: none;
+        }
+
+        .track-item:hover {
+            background: rgba(255, 255, 255, 0.07);
+            transform: translateX(4px);
+        }
+
+        .track-num {
+            color: #777777;
+            margin-right: 10px;
+            font-size: 12px;
+        }
+
+        .track-name {
+            color: #e5e5e5;
+        }
+
+        .track-time {
+            color: #777777;
+            font-size: 11px;
+        }
+       
+         .term-box {
+         opacity: 0;
+         transform: translateY(55px) scale(0.95);
+         transition: opacity 1.6s ease-out, transform 1.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+     }
+
+     body.loaded .term-box {
+         opacity: 1;
+         transform: translateY(0) scale(1);
+         transition-delay: 2.9s;
+     }
+
+     .term-output {
+         font-size: 12px;
+         color: #999999;
+         margin-bottom: 10px;
+         line-height: 1.5;
+         min-height: 36px;
+     }
+
+     .term-input-line {
+         display: flex;
+         align-items: center;
+         gap: 8px;
+         font-size: 13px;
+         border-top: 1px solid rgba(255, 255, 255, 0.1);
+         padding-top: 10px;
+     }
+
+     .term-prompt {
+         color: #ffffff;
+         font-weight: bold;
+     }
+
+     #termInput {
+         background: transparent;
+         border: none;
+         outline: none;
+         color: #ffffff;
+         font-family: 'JetBrains Mono', monospace;
+         font-size: 13px;
+         width: 100%;
+     }
+       /* VHS-глитч эффект на заголовке */
+        .nickname {
+            position: relative;
+            animation: vhsGlitch 3.5s infinite;
+        }
+
+        .nickname:hover {
+            animation: vhsGlitchFast 0.35s infinite;
+        }
+
+        @keyframes vhsGlitch {
+            0%, 90%, 100% {
+                transform: translate(0);
+                text-shadow: none;
+            }
+            92% {
+                transform: translate(-3px, 1px) skewX(-6deg);
+                text-shadow: 3px 0 #ff003c, -3px 0 #00f0ff;
+            }
+            94% {
+                transform: translate(3px, -1px) skewX(6deg);
+                text-shadow: -3px 0 #ff003c, 3px 0 #00f0ff;
+            }
+            96% {
+                transform: translate(-2px, -1px);
+                text-shadow: 2px 0 #ff003c, -2px 0 #00f0ff;
+            }
+            98% {
+                transform: translate(2px, 1px) skewX(-3deg);
+                text-shadow: -2px 0 #ff003c, 2px 0 #00f0ff;
+            }
+        }
+
+        @keyframes vhsGlitchFast {
+            0% {
+                transform: translate(-2px, 1px) skewX(-5deg);
+                text-shadow: 3px 0 #ff003c, -3px 0 #00f0ff;
+            }
+            50% {
+                transform: translate(2px, -1px) skewX(5deg);
+                text-shadow: -3px 0 #ff003c, 3px 0 #00f0ff;
+            }
+            100% {
+                transform: translate(-1px, 0);
+                text-shadow: 2px 0 #ff003c, -2px 0 #00f0ff;
+            }
+        }
+         /* Виньетка и полоски старого CRT-монитора поверх всего экрана */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle, transparent 55%, rgba(0, 0, 0, 0.75) 100%),
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.15) 0px,
+                    rgba(0, 0, 0, 0.15) 1px,
+                    transparent 1px,
+                    transparent 3px
+                );
+            pointer-events: none;
+            z-index: 90;
+        }
+
+        /* Ультратонкая полоса прокрутки в стиле сайта */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.6);
+        }
+          /* Обёртка для аватарки с вращающимся кольцом */
+        .avatar-wrap {
+            position: relative;
+            width: 156px;
+            height: 156px;
+            margin: 0 auto 15px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Вращающееся пунктирное кольцо вокруг фото */
+        .avatar-ring {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1.5px dashed rgba(255, 255, 255, 0.45);
+            box-sizing: border-box;
+            animation: spinRing 14s linear infinite;
+            pointer-events: none;
+            transition: border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .avatar-wrap:hover .avatar-ring {
+            border-color: #ffffff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.35);
+            animation-duration: 5s;
+        }
+
+        /* Убираем лишний нижний отступ у самой фотки внутри обёртки */
+        .avatar-wrap .my-photo {
+            margin-bottom: 0;
+        }
+
+        @keyframes spinRing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Дышащее неоновое свечение контура главной карточки */
+        .content-box {
+            animation: borderBreathe 4s ease-in-out infinite;
+        }
+
+        @keyframes borderBreathe {
+            0%, 100% {
+                border-color: rgba(255, 255, 255, 0.15);
+                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+            }
+            50% {
+                border-color: rgba(255, 255, 255, 0.38);
+                box-shadow: 0 15px 45px rgba(255, 255, 255, 0.1);
+            }
+        }
+         /* Скрываем всё, что выходит за скруглённые углы карточки (для блика) */
+        .content-box {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Диагональный стеклянный блик при наведении на карточку */
+        .content-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 80%;
+            height: 100%;
+            background: linear-gradient(
+                115deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.08) 50%,
+                transparent 100%
+            );
+            transform: skewX(-25deg);
+            transition: left 0.85s ease;
+            pointer-events: none;
+        }
+
+        .content-box:hover::before {
+            left: 160%;
+        }
+
+        /* Мягкое неоновое свечение готического заголовка */
+        .nickname {
+            text-shadow: 0 0 18px rgba(255, 255, 255, 0.45);
+        }
+           /* VHS-глитч на кнопке начального экрана */
+        .enter-text {
+            animation: enterGlitch 3s infinite;
+        }
+
+        @keyframes enterGlitch {
+            0%, 88%, 100% {
+                transform: translate(0);
+                text-shadow: none;
+                border-color: rgba(255, 255, 255, 0.25);
+            }
+            90% {
+                transform: translate(-3px, 1px) skewX(-5deg);
+                text-shadow: 3px 0 #ff003c, -3px 0 #00f0ff;
+                border-color: #ff003c;
+            }
+            93% {
+                transform: translate(3px, -1px) skewX(5deg);
+                text-shadow: -3px 0 #ff003c, 3px 0 #00f0ff;
+                border-color: #00f0ff;
+            }
+            96% {
+                transform: translate(-2px, 0);
+                text-shadow: 2px 0 #ff003c, -2px 0 #00f0ff;
+                border-color: #ffffff;
+            }
+        }
+          /* Угловые рамки видоискателя камеры на экране входа */
+        #enterScreen::before,
+        #enterScreen::after {
+            content: "";
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            border-color: rgba(255, 255, 255, 0.45);
+            border-style: solid;
+            pointer-events: none;
+        }
+
+        /* Верхний левый угол */
+        #enterScreen::before {
+            top: 25px;
+            left: 25px;
+            border-width: 2px 0 0 2px;
+        }
+
+        /* Нижний правый угол */
+        #enterScreen::after {
+            bottom: 25px;
+            right: 25px;
+            border-width: 0 2px 2px 0;
+        }
+
+        /* Индикатор записи REC в верхнем правом углу экрана входа */
+        .rec-badge {
+            position: absolute;
+            top: 28px;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: #ffffff;
+            user-select: none;
+        }
+
+        .rec-dot {
+            width: 9px;
+            height: 9px;
+            background-color: #ff003c;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ff003c;
+            animation: recBlink 1s infinite;
+        }
+
+        @keyframes recBlink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0.15; }
+        }
+           #enterScreen {
+            flex-direction: column;
+            gap: 18px;
+        }
+         /* Гигантская плывущая типографика на фоне экрана входа */
+        .bg-watermark-wrap {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            transform: translateY(-50%);
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            opacity: 0.06;
+        }
+
+        .bg-watermark-line {
+            font-family: 'UnifrakturMaguntia', cursive;
+            font-size: 130px;
+            white-space: nowrap;
+            color: #ffffff;
+            letter-spacing: 8px;
+            user-select: none;
+            animation: floatTextLeft 22s linear infinite;
+        }
+
+        .bg-watermark-line.reverse {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 90px;
+            font-weight: 700;
+            animation: floatTextRight 26s linear infinite;
+        }
+
+        @keyframes floatTextLeft {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes floatTextRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
+        }
+
+        /* Адаптация размера гигантского текста для телефона */
+        @media (max-width: 600px) {
+            .bg-watermark-line { font-size: 80px; }
+            .bg-watermark-line.reverse { font-size: 55px; }
+        }
     </style>
 </head>
 <body>
   <div class="custom-cursor" id="customCursor"></div>
     <div id="enterScreen">
+         <div class="bg-watermark-wrap">
+            <div class="bg-watermark-line">rick owens &gt;&gt;&gt; rick owens &gt;&gt;&gt; rick owens &gt;&gt;&gt; rick owens &gt;&gt;&gt; </div>
+            <div class="bg-watermark-line reverse">ARCHIVE 2026 // 9MICE // VIPERR // ARCHIVE 2026 // 9MICE // VIPERR // </div>
+            <div class="bg-watermark-line">rick owens &gt;&gt;&gt; rick owens &gt;&gt;&gt; rick owens &gt;&gt;&gt; rick owens &gt;&gt;&gt; </div>
+        </div>
+
+                <div class="rec-badge"><span class="rec-dot"></span>REC // ARCHIVE</div>
+        <div class="enter-logs">
+            [ SYSTEM: RICK OWENS 2026 // READY ]<br>
+            [ AUDIO: 9MICE LOADED ]
+        </div>
         <div class="enter-text">[ click to see rick owens bio-&gt;&gt; ]</div>
     </div>
 
@@ -339,7 +789,10 @@
     <canvas id="ashCanvas"></canvas>
 
     <div class="content-box">
-        <img src="мое фото ъ.jpg" alt="Avatar" class="my-photo">
+          <div class="avatar-wrap">
+            <div class="avatar-ring"></div>
+            <img src="мое фото ъ.jpg" alt="Avatar" class="my-photo">
+        </div>
 
         <h1 class="nickname">rick owens&gt;&gt;&gt;</h1>
         
@@ -348,7 +801,7 @@
         <div class="track-marquee">
             <span class="track-icon">♫</span>
             <div class="marquee-wrap">
-                <span class="marquee-text">9mice - kill nill / evian</span>
+                <span class="marquee-text">9mice - kill bill / evian</span>
             </div>
         </div>
 
@@ -376,6 +829,40 @@
             I like women; I respect them.<br> favorite artists: 9mice,kai angel,dabbackwood,королевский XVII<br>I hate people
         </p>
     </div>
+      <!-- Третий блок: Топ любимых треков -->
+    <div class="about-box tracks-box">
+        <h2 class="about-title">// top tracks</h2>
+        <ul class="track-list">
+            <li class="track-item">
+                <div><span class="track-num">01</span><span class="track-name">9mice - kill bill / evian</span></div>
+                <span class="track-time">2:14</span>
+            </li>
+            <li class="track-item">
+                <div><span class="track-num">02</span><span class="track-name">9mice - Smokey Eyes</span></div>
+                <span class="track-time">1:58</span>
+            </li>
+            <li class="track-item">
+                <div><span class="track-num">03</span><span class="track-name">kai angel - andy warhol</span></div>
+                <span class="track-time">2:56</span>
+            </li>
+            <li class="track-item">
+                <div><span class="track-num">04</span><span class="track-name">kai angel - gladiator</span></div>
+                <span class="track-time">1:43</span>
+            </li>
+             <li class="track-item">
+                <div><span class="track-num">05</span><span class="track-name">королевскийXVII - sv moscow </span></div>
+                <span class="track-time">2:23</span>
+        </ul>
+    </div>
+     <div class="about-box term-box">
+        <h2 class="about-title">// введи любое слово(букву) </h2>
+        <div class="term-output" id="termOutput">system ready. type "help" for commands...</div>
+        <div class="term-input-line">
+            <span class="term-prompt">&gt;</span>
+            <input type="text" id="termInput" placeholder="введи команду..." autocomplete="off">
+        </div>
+    </div>
+
     <script>
         const enterScreen = document.getElementById("enterScreen");
         const bgMusic = document.getElementById("bgMusic");
@@ -386,6 +873,7 @@
 
         enterScreen.addEventListener("click", () => {
             enterScreen.style.display = "none";
+              document.body.classList.add("loaded");
             bgMusic.play().catch(err => console.log(err));
             isPlaying = true;
             typeEffect();
@@ -522,6 +1010,54 @@
             });
 
             setTimeout(() => tag.remove(), 2000);
+        });
+           const termInput = document.getElementById("termInput");
+     const termOutput = document.getElementById("termOutput");
+
+     if (termInput) {
+         termInput.addEventListener("keydown", (e) => {
+             if (e.key === "Enter") {
+                 const cmd = termInput.value.trim().toLowerCase();
+                 termInput.value = "";
+
+                 if (cmd === "помоги господин") {
+                     termOutput.textContent = "доступные команды: help, secret, about me, tgk, what";
+                 } else if (cmd === "secret") {
+                     termOutput.textContent = "rick owens ebet world)))^^";
+                 } else if (cmd === "tgk") {
+                     termOutput.textContent = "канал: t.me/rickowlife";
+                 } else if (cmd === "about me") {
+                     termOutput.textContent = "я свободный()";
+                 } else if (cmd === "what") {
+                     termOutput.textContent = "go sex malaya";
+                 } else {
+                     termOutput.textContent = `команда "${cmd}" не найдена. напиши помоги господин`;
+                 }
+             }
+         });
+     }
+      // 3D-наклон карточек за курсором
+        document.querySelectorAll(".content-box, .about-box").forEach(card => {
+            card.addEventListener("mousemove", (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Угол наклона (чем больше делитель, тем мягче наклон)
+                const rotateX = ((y - centerY) / centerY) * -6;
+                const rotateY = ((x - centerX) / centerX) * 6;
+                
+                card.style.transition = "transform 0.1s ease-out";
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            });
+
+            card.addEventListener("mouseleave", () => {
+                card.style.transition = "transform 0.5s ease";
+                card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)";
+            });
         });
     </script>
 
